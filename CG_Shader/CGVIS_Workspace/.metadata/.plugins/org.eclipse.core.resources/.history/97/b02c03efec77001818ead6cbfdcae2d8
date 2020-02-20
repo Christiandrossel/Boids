@@ -1,0 +1,62 @@
+package tests;
+
+import static org.junit.Assert.*;
+
+import org.junit.Test;
+import org.junit.After;
+import org.junit.Assert;
+import org.junit.Before;
+import org.junit.Test;
+
+import math.Vektor2D;
+import Beleg.SchwarmObjekt;
+import Beleg.ObjectManager;
+import Beleg.SchwarmVerhalten;
+
+public class testBewegtesObjekt {
+	
+	SchwarmObjekt so1, so2, so3;
+	SchwarmVerhalten testVerhalten;
+	
+	@Before
+	public void initObjects() {
+		so1 = new SchwarmObjekt();
+		so2 = new SchwarmObjekt(20,19, 15, 11);
+		so3 = new SchwarmObjekt(10,10,50,45,12,1,2,3);
+		
+		so3.setVelocity(new Vektor2D(33, 44));
+		
+		testVerhalten = new SchwarmVerhalten(so2);
+		so3.setVerhalten(testVerhalten);
+	}
+	
+	@After
+	public void deleteObjects() {
+		
+	}
+	
+	@Test
+	public void test() {
+		so1 = new SchwarmObjekt();
+		so2 = new SchwarmObjekt(20,19, 15, 11);
+		so3 = new SchwarmObjekt(10,10,50,45,12,1,2,3);
+		
+		so3.setVelocity(new Vektor2D(33, 44));
+		
+		testVerhalten = new SchwarmVerhalten(so2);
+		so3.setVerhalten(testVerhalten);
+		
+		Assert.assertNotNull(so1.getMaxGeschwindigkeit());
+		
+		Assert.assertEquals(5., so1.getMaxGeschwindigkeit(), 1.0);
+		//Assert.assertEquals(5., so1.getMasse(), 1.0);
+
+		/*Assert.assertEquals(0., so2.getMaxGeschwindigkeit(), 0.01);
+		Assert.assertEquals(2., so2.getMasse(), 0.01);
+		
+		Assert.assertEquals(0., so2.getMaxGeschwindigkeit(), 0.01);
+		Assert.assertEquals(2., so2.getMasse(), 0.01);
+		*/
+	}
+
+}

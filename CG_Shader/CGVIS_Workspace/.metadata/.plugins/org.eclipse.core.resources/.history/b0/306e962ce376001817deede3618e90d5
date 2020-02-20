@@ -1,0 +1,164 @@
+package Beleg;
+
+import static org.lwjgl.opengl.GL11.*;
+import static org.lwjgl.opengl.GL30.GL_FRAMEBUFFER;
+import static org.lwjgl.opengl.GL11.GL_TRIANGLE_FAN;
+import static org.lwjgl.opengl.GL11.glBegin;
+import static org.lwjgl.opengl.GL11.glColor3d;
+import static org.lwjgl.opengl.GL11.glEnd;
+import static org.lwjgl.opengl.GL11.glVertex2f;
+
+import math.LineareAlgebra;
+import math.Vektor2D;
+
+public class Dreieck extends BewegtesObjekt {
+	
+
+	    private static int objCounter = 0;
+	    private double radius;						// Radius geht hier von der längsten kantenlänge aus a wobei a = b und a/2=c
+	    private double r, g, b;
+
+	    public Dreieck() {						//setze x, y, MAsse, maxSpeed, Radius, r,g,b von B
+	        this(0, 0, 5, 5, 0, 255, 0, 0);
+	    }
+
+	    public Dreieck(double xPos, double yPos, double masse, double maxSpeed) {
+	        this(xPos, yPos, masse, maxSpeed, 0, 255, 0, 0);
+	    }
+
+	    public Dreieck(double xPos, double yPos, double masse, double maxSpeed, double radius, double r, double g, double b) {
+	        super(xPos, yPos, radius * masse, (maxSpeed * (1 / radius)));
+	        this.radius = radius;
+	        this.r = r;
+	        this.g = g;
+	        this.b = b;
+	        this.id = ++objCounter;
+	    }
+
+	    public int getId() {			//gib die ObjektID zurück
+	        return id;
+	    }
+
+	    public double[] getPosition() {		//gib Position zurück
+	        return position.getPosition();
+	    }
+
+	    public double getRadius () {		//gib Radius zurück
+	        return radius;
+	    }
+	    
+		protected void drawDynamicTriangle(double size, Vektor2D direction) {
+			Vektor2D right, left, front;
+			try {
+				front = (Vektor2D) LineareAlgebra.normalize(direction).mult(size);
+				right = (Vektor2D) LineareAlgebra.turn120(front).div(2);
+				left = (Vektor2D) LineareAlgebra.turn240(front).div(2);
+			} catch (Exception e) {
+				front = right = left = new Vektor2D();
+				e.printStackTrace();
+			}
+
+			glVertex2f((float) (pos.getX() + front.getX()), (float) (pos.getY() + front.getY()));
+			glVertex2f((float) (pos.getX() + right.getX()), (float) (pos.getY() + right.getY()));
+			glVertex2f((float) (pos.getX() + left.getX()), (float) (pos.getY() + left.getY()));
+		}
+
+	    @Override
+	    public void render() {
+	        /*glColor3d(r, g, b);			//render Farben
+	        glBegin(GL_TRIANGLE_FAN);
+	        glVertex2d(position.getX(), position.getY());
+	        for (int angle = 0; angle < 360; angle += 5) {
+	            glVertex2d(position.getX() + Math.sin(angle) * radius, position.getY() + Math.cos(angle) * radius);
+	        }
+	        glEnd();
+	        */
+	    	
+	    	glColor(r,g,b);
+			glBegin(GL_TRIANGLE_FAN);
+			//glColor3f((float) color.getX(), (float) color.getY(), (float) color.getZ());
+			drawDynamicTriangle(15, velocity);
+			glEnd();
+	    }
+
+}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+/*
+   private static int objCounter = 0; 
+   private float r, g, b;
+
+   public Dreieck() {
+	   this(new Vektor2D(0, 0), new Vektor2D(2, 0), 1, 1, 0);
+   }
+   
+   public Dreieck(Vektor2D position, Vektor2D velocity) {
+      this(position, velocity, 1, 1, 0);
+   }
+   
+   public Dreieck(Vektor2D position, Vektor2D velocity, float r, float g, float b) {
+      super(position, velocity);
+      this.r=r;
+      this.g=g;
+      this.b=b;
+      this.id = ++objCounter;
+   }
+
+   protected void drawDynamicTriangle(double size, Vektor2D velocity) {
+		double[] right = {0,0}; 
+		double[] left = {0,0}; 
+		double[] front = {0,0};
+		try {
+			front =  LineareAlgebra.mult(LineareAlgebra.normalize(velocity),size);
+			right = LineareAlgebra.div(2, front);
+			left = LineareAlgebra.div(2, front);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		glVertex2f((float) (position.getX() + front[0]), (float) (position.getY() + front[1]));
+		glVertex2f((float) (position.getX() + right[0]), (float) (position.getY() + right[1]));
+		glVertex2f((float) (position.getX() + left[0]), (float) (position.getY() + left[1]));
+	}
+   
+   @Override
+   public void render() {
+      glColor3d(r, g, b);
+      glBegin(GL_TRIANGLE_FAN);
+      /**
+      glVertex2f((float)position.getX(), (float)position.getY()); 			// Ist nicht möglich da es kein x,y in BewegtesObjekt und BasisObjekt gibt bzw. 
+      for (int angle=0; angle<360; angle+=5) {
+         glVertex2f((float)position.getX() + (float)Math.sin(angle) * radius, (float)position.getY() + (float)Math.cos(angle) * radius);
+      }
+      /
+      drawDynamicTriangle(15, velocity);
+      glEnd(); 
+   }
+   
+}
+*/

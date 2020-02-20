@@ -1,0 +1,22 @@
+package tests;
+
+import static org.junit.Assert.*;
+
+import org.junit.Test;
+import org.junit.After;
+import org.junit.Assert;
+import org.junit.Before;
+import org.junit.Test;
+
+import math.Vektor2D;
+import Beleg.SchwarmObjekt;
+import Beleg.ObjectManager;
+
+public class testBewegtesObjekt {
+
+	@Test
+	public void test() {
+		fail("Not yet implemented");
+	}
+
+}

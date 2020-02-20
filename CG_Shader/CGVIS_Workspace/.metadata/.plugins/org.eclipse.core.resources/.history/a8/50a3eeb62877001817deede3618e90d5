@@ -1,0 +1,63 @@
+package Beleg;
+
+import static org.lwjgl.opengl.GL11.*;
+import static org.lwjgl.opengl.GL30.GL_FRAMEBUFFER;
+
+public class SchwarmObjekt extends BewegtesObjekt {
+    private static int objCounter = 0;
+    private double radius;
+    private double r, g, b;
+
+    public SchwarmObjekt() {						//setze x, y, MAsse, maxSpeed, Radius, r,g,b von B
+        this(0, 0, 5, 5, 0, 255, 0, 0);
+    }
+
+    public SchwarmObjekt(double xPos, double yPos, double masse, double maxSpeed) {
+        this(xPos, yPos, masse, maxSpeed, 0, 255, 0, 0);
+    }
+
+    public SchwarmObjekt(double xPos, double yPos, double masse, double maxSpeed, double radius, double r, double g, double b) {
+        super(xPos, yPos, radius * masse, (maxSpeed * (1 / radius)));
+        this.radius = radius;
+        this.r = r;
+        this.g = g;
+        this.b = b;
+        this.id = ++objCounter;
+    }
+
+    public int getId() {			//gib die ObjektID zurück
+        return id;
+    }
+
+    public double[] getPosition() {		//gib Position zurück
+        return position.getPosition();
+    }
+
+    public double getRadius () {		//gib Radius zurück
+        return radius;
+    }
+    
+
+    @Override
+    public void render() {
+    	glColor3d(r, g, b);			//render Farben
+        glBegin(GL_TRIANGLE_FAN);
+        glVertex2d(position.getX(), position.getY());
+        
+        /*for (int angle = 0; angle < 360; angle += 5) {																	//render einen Kreis (360 eck)
+            glVertex2d(position.getX() + Math.sin(angle) * radius, position.getY() + Math.cos(angle) * radius);
+        }
+       */
+    	    	
+        //Rendert Dreiecke:
+        glVertex2d(position.getX() + Math.sin(40) * radius, position.getY() + Math.cos(50) * radius);
+        glVertex2d(position.getX() + Math.sin(40) * radius, position.getY() + Math.cos(20) * radius);
+        glVertex2d(position.getX() + Math.sin(40) * radius, position.getY() + Math.cos(20) * radius);
+        glVertex2d(position.getX() + Math.sin(40) * radius, position.getY() + Math.cos(20) * radius);
+       
+        glEnd();
+    	
+        
+    }
+
+}

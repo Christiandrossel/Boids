@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename resource &apos;VL_CGII_2014&apos; to &apos;ShaderBeleg&apos;" description="Rename resource &apos;VL_CGII_2014&apos;" flags="7" id="org.eclipse.ltk.core.refactoring.rename.resource" input="/VL_CGII_2014" name="ShaderBeleg" stamp="1530043200640" updateReferences="true"/>
+</session>
